@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Sudheer Bandi Portfolio — Authentication + Email MFA
 
 The portfolio now opens on a sign-in screen. The private portfolio page is revealed only after the backend verifies the password and a one-time email code.
@@ -45,3 +46,55 @@ For local email delivery, use a valid Resend API key and verified sender. Never 
 - If you lose access to the admin password, reset it securely in the database using a bcrypt hash or implement a controlled password-reset flow before exposing the site publicly.
 - Use Render's persistent PostgreSQL database, not SQLite or a local file, for deployed user and session data.
 - The login is intentionally private: there is no public registration page.
+=======
+# Sudheer Bandi - Portfolio
+
+Welcome to my personal portfolio website.
+
+## About Me
+
+I am an Integrated M.Tech Computer Science and Engineering student at VIT-AP University, interested in Artificial Intelligence, Machine Learning, LLM applications and Python development.
+
+## Technical Skills
+
+- Python
+- Java
+- Data Structures & Algorithms
+- Artificial Intelligence
+- Machine Learning
+- LLM Applications
+- LangChain
+- Ollama
+- FastAPI
+- HTML
+- CSS
+- JavaScript
+- React
+- MySQL
+- Git
+- GitHub
+- Docker
+
+## Projects
+
+### University AI Assistant
+
+An AI-powered university assistant chatbot designed to help students access university-related information through a conversational interface.
+
+### Agentic AI Projects
+
+Projects focused on AI agents, LLM applications and intelligent task automation.
+
+## Education
+
+**Integrated M.Tech - Computer Science and Engineering**
+
+VIT-AP University  
+2023 - 2028
+
+## Contact
+
+Email: sudheerbandi1929@gmail.com
+
+GitHub: https://github.com/Sudheer0x
+>>>>>>> origin/main
