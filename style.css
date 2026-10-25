@@ -1138,7 +1138,7 @@ footer {
 .reveal.show {
     opacity: 1;
     transform: translateY(0);
-<<<<<<< HEAD
+
 }
 
 /* ==========================================
@@ -1168,6 +1168,21 @@ footer {
 @media (max-width: 480px) { .auth-panel { padding: 28px 22px; } }
 .auth-logout { color: #e2e8f0; background: transparent; border: 1px solid #475569; border-radius: 8px; padding: 8px 12px; cursor: pointer; font: inherit; font-size: 13px; }
 .auth-logout:hover { border-color: #a5b4fc; }
-=======
+
+
+.auth-switch {
+    margin-top: 16px;
+    color: #aab2c0;
+    text-align: center;
+    font-size: 14px;
 }
->>>>>>> origin/main
+
+.auth-link {
+    background: transparent;
+    border: 0;
+    color: #9b94ff;
+    cursor: pointer;
+    font: inherit;
+    text-decoration: underline;
+    margin-left: 4px;
+}

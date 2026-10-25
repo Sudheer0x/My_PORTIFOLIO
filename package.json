@@ -1,0 +1,12 @@
+
+{
+  "name": "my-portifolio",
+  "version": "1.0.0",
+  "private": true,
+  "devDependencies": {
+    "gh-pages": "^6.3.0"
+  },
+  "scripts": {
+    "deploy": "node deploy.js"
+  }
+}

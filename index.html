@@ -27,7 +27,7 @@
     <link rel="stylesheet" href="style.css">
 </head>
 
-<<<<<<< HEAD
+
 <body class="auth-locked">
     <section id="auth-screen" class="auth-screen" aria-labelledby="auth-title">
       <div class="auth-panel">
@@ -41,6 +41,56 @@
           <label for="login-password">Password</label>
           <input id="login-password" name="password" type="password" autocomplete="current-password" placeholder="Enter your password" required minlength="8">
           <button id="login-button" class="auth-submit" type="submit">Sign in <span aria-hidden="true">→</span></button>
+          
+<form id="signup-form" class="hidden" autocomplete="on">
+    <label for="signup-email">Email address</label>
+    <input
+        id="signup-email"
+        name="email"
+        type="email"
+        autocomplete="email"
+        placeholder="you@example.com"
+        required
+    >
+
+    <label for="signup-password">Password</label>
+    <input
+        id="signup-password"
+        name="password"
+        type="password"
+        autocomplete="new-password"
+        minlength="12"
+        placeholder="At least 12 characters"
+        required
+    >
+
+    <label for="signup-confirm-password">Confirm password</label>
+    <input
+        id="signup-confirm-password"
+        name="confirmPassword"
+        type="password"
+        autocomplete="new-password"
+        minlength="12"
+        placeholder="Re-enter your password"
+        required
+    >
+
+    <button id="signup-button" class="auth-submit" type="submit">
+        Create account →
+    </button>
+</form>
+
+<p class="auth-switch">
+    <span id="auth-switch-text">New here?</span>
+    <button
+        id="auth-switch-button"
+        class="auth-link"
+        type="button"
+    >
+        Create an account
+    </button>
+</p>
+
         </form>
         <form id="mfa-form" class="hidden" autocomplete="one-time-code">
           <label for="mfa-code">6-digit verification code</label>
@@ -57,7 +107,7 @@
     <div id="site-content" class="site-content hidden">
 =======
 <body>
->>>>>>> origin/main
+
 
     <!-- ================= NAVBAR ================= -->
 
