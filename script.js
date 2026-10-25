@@ -101,3 +101,148 @@ signupForm.addEventListener("submit", async (event) => {
         signupButton.textContent = "Create account →";
     }
 });
+
+
+
+const mfaForm = document.getElementById("mfa-form");
+const authScreen = document.getElementById("auth-screen");
+const siteContent = document.getElementById("site-content");
+
+// Login: verify email and password
+loginForm.addEventListener("submit", async (event) => {
+    event.preventDefault();
+
+    const email = document.getElementById("login-email").value
+        .trim()
+        .toLowerCase();
+    const password = document.getElementById("login-password").value;
+    const button = document.getElementById("login-button");
+
+    button.disabled = true;
+    authMessage.textContent = "Checking your credentials...";
+
+    try {
+        const response = await fetch(`${API_BASE}/api/auth/login`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            credentials: "include",
+            body: JSON.stringify({ email, password })
+        });
+
+        const data = await response.json().catch(() => ({}));
+
+        if (!response.ok) {
+            throw new Error(
+                data.message || data.error || "Invalid email or password."
+            );
+        }
+
+        loginForm.classList.add("hidden");
+        signupForm.classList.add("hidden");
+        mfaForm.classList.remove("hidden");
+
+        authMessage.textContent =
+            data.message || "Verification code sent to your email.";
+
+        document.getElementById("mfa-code").focus();
+    } catch (error) {
+        authMessage.textContent =
+            error.message || "Unable to connect to the server.";
+    } finally {
+        button.disabled = false;
+    }
+});
+
+// Verify MFA: reveal portfolio only after backend success
+mfaForm.addEventListener("submit", async (event) => {
+    event.preventDefault();
+
+    const code = document.getElementById("mfa-code").value.trim();
+    const button = document.getElementById("verify-button");
+
+    button.disabled = true;
+    authMessage.textContent = "Verifying your code...";
+
+    try {
+        const response = await fetch(
+            `${API_BASE}/api/auth/verify-mfa`,
+            {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                credentials: "include",
+                body: JSON.stringify({ code })
+            }
+        );
+
+        const data = await response.json().catch(() => ({}));
+
+        if (!response.ok) {
+            throw new Error(
+                data.message || data.error || "Invalid or expired code."
+            );
+        }
+
+        authScreen.classList.add("hidden");
+        siteContent.classList.remove("hidden");
+        document.body.classList.remove("auth-locked");
+    } catch (error) {
+        authMessage.textContent =
+            error.message || "Verification failed. Please try again.";
+    } finally {
+        button.disabled = false;
+    }
+});
+
+// Resend MFA code
+const resendButton = document.getElementById("resend-button");
+
+if (resendButton) {
+    resendButton.addEventListener("click", async () => {
+        resendButton.disabled = true;
+        authMessage.textContent = "Requesting a new verification code...";
+
+        try {
+            const response = await fetch(
+                `${API_BASE}/api/auth/resend-code`,
+                {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    credentials: "include"
+                }
+            );
+
+            const data = await response.json().catch(() => ({}));
+
+            if (!response.ok) {
+                throw new Error(
+                    data.message || data.error || "Unable to resend code."
+                );
+            }
+
+            authMessage.textContent =
+                data.message || "A new verification code was sent.";
+        } catch (error) {
+            authMessage.textContent =
+                error.message || "Unable to resend verification code.";
+        } finally {
+            resendButton.disabled = false;
+        }
+    });
+}
+
+// Return from MFA to login
+const backButton = document.getElementById("back-button");
+
+if (backButton) {
+    backButton.addEventListener("click", () => {
+        mfaForm.classList.add("hidden");
+        loginForm.classList.remove("hidden");
+
+        authTitle.textContent = "Welcome back";
+        authSubtitle.textContent =
+            "Sign in to continue to the portfolio.";
+        switchText.textContent = "New here?";
+        switchButton.textContent = "Create an account";
+        authMessage.textContent = "";
+    });
+}
