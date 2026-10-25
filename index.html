@@ -1,834 +1,535 @@
+
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Sudheer Bandi | AI/ML Engineer</title>
-
     <meta name="description"
-        content="Sudheer Bandi - AI/ML Engineer and Integrated M.Tech CSE student at VIT-AP University.">
+          content="Sudheer Bandi - AI/ML Engineer and Integrated M.Tech CSE student at VIT-AP University.">
 
-    <!-- Google Font -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+          rel="stylesheet">
 
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
-        rel="stylesheet">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
-    <!-- Font Awesome -->
-    <link
-        rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-
-    <!-- CSS -->
     <link rel="stylesheet" href="style.css">
 </head>
 
-
 <body class="auth-locked">
-    <section id="auth-screen" class="auth-screen" aria-labelledby="auth-title">
-      <div class="auth-panel">
-        <div class="auth-mark">SB<span>.</span></div>
-        <p class="auth-eyebrow">SECURE PORTFOLIO ACCESS</p>
-        <h1 id="auth-title">Welcome back</h1>
-        <p class="auth-subtitle">Sign in to continue to the portfolio.</p>
-        <form id="login-form" autocomplete="on">
-          <label for="login-email">Email address</label>
-          <input id="login-email" name="email" type="email" autocomplete="username" placeholder="you@example.com" required>
-          <label for="login-password">Password</label>
-          <input id="login-password" name="password" type="password" autocomplete="current-password" placeholder="Enter your password" required minlength="8">
-          <button id="login-button" class="auth-submit" type="submit">Sign in <span aria-hidden="true">→</span></button>
-          
-<form id="signup-form" class="hidden" autocomplete="on">
-    <label for="signup-email">Email address</label>
-    <input
-        id="signup-email"
-        name="email"
-        type="email"
-        autocomplete="email"
-        placeholder="you@example.com"
-        required
-    >
 
-    <label for="signup-password">Password</label>
-    <input
-        id="signup-password"
-        name="password"
-        type="password"
-        autocomplete="new-password"
-        minlength="12"
-        placeholder="At least 12 characters"
-        required
-    >
+    <!-- ================= AUTHENTICATION ================= -->
+    <section id="auth-screen" class="auth-screen"
+             aria-labelledby="auth-title">
 
-    <label for="signup-confirm-password">Confirm password</label>
-    <input
-        id="signup-confirm-password"
-        name="confirmPassword"
-        type="password"
-        autocomplete="new-password"
-        minlength="12"
-        placeholder="Re-enter your password"
-        required
-    >
+        <div class="auth-panel">
+            <div class="auth-mark">SB<span>.</span></div>
 
-    <button id="signup-button" class="auth-submit" type="submit">
-        Create account →
-    </button>
-</form>
+            <p class="auth-eyebrow">SECURE PORTFOLIO ACCESS</p>
 
-<p class="auth-switch">
-    <span id="auth-switch-text">New here?</span>
-    <button
-        id="auth-switch-button"
-        class="auth-link"
-        type="button"
-    >
-        Create an account
-    </button>
-</p>
+            <h1 id="auth-title">Welcome back</h1>
+            <p class="auth-subtitle" id="auth-subtitle">
+                Sign in to continue to the portfolio.
+            </p>
 
-        </form>
-        <form id="mfa-form" class="hidden" autocomplete="one-time-code">
-          <label for="mfa-code">6-digit verification code</label>
-          <input id="mfa-code" name="code" inputmode="numeric" autocomplete="one-time-code" pattern="[0-9]{6}" maxlength="6" placeholder="000000" required>
-          <p class="auth-hint">We sent a verification code to your email. It expires in 10 minutes.</p>
-          <button id="verify-button" class="auth-submit" type="submit">Verify and continue <span aria-hidden="true">→</span></button>
-          <button id="resend-button" class="auth-link" type="button">Resend code</button>
-          <button id="back-button" class="auth-link" type="button">Use a different account</button>
-        </form>
-        <p id="auth-message" class="auth-message" role="status" aria-live="polite"></p>
-        <p class="auth-footnote"><i class="fa-solid fa-shield-halved"></i> Protected with two-step verification</p>
-      </div>
-    </section>
-    <div id="site-content" class="site-content hidden">
-=======
-<body>
+            <!-- LOGIN FORM -->
+            <form id="login-form" autocomplete="on">
+                <label for="login-email">Email address</label>
+                <input
+                    id="login-email"
+                    name="email"
+                    type="email"
+                    autocomplete="username"
+                    placeholder="you@example.com"
+                    required
+                >
 
+                <label for="login-password">Password</label>
+                <input
+                    id="login-password"
+                    name="password"
+                    type="password"
+                    autocomplete="current-password"
+                    placeholder="Enter your password"
+                    required
+                    minlength="8"
+                >
 
-    <!-- ================= NAVBAR ================= -->
+                <button id="login-button" class="auth-submit" type="submit">
+                    Sign in <span aria-hidden="true">→</span>
+                </button>
+            </form>
 
-    <header class="navbar">
+            <!-- SIGNUP FORM -->
+            <form id="signup-form" class="hidden" autocomplete="on">
+                <label for="signup-email">Email address</label>
+                <input
+                    id="signup-email"
+                    name="email"
+                    type="email"
+                    autocomplete="email"
+                    placeholder="you@example.com"
+                    required
+                >
 
-        <div class="container nav-container">
+                <label for="signup-password">Password</label>
+                <input
+                    id="signup-password"
+                    name="password"
+                    type="password"
+                    autocomplete="new-password"
+                    minlength="12"
+                    placeholder="At least 12 characters"
+                    required
+                >
 
-            <a href="#home" class="logo">
-                SB<span>.</span>
-            </a>
+                <label for="signup-confirm-password">Confirm password</label>
+                <input
+                    id="signup-confirm-password"
+                    name="confirmPassword"
+                    type="password"
+                    autocomplete="new-password"
+                    minlength="12"
+                    placeholder="Re-enter your password"
+                    required
+                >
 
-            <nav>
+                <button id="signup-button" class="auth-submit" type="submit">
+                    Create account <span aria-hidden="true">→</span>
+                </button>
+            </form>
 
-                <a href="#home">Home</a>
-                <a href="#about">About</a>
-                <a href="#skills">Skills</a>
-                <a href="#experience">Experience</a>
-                <a href="#projects">Projects</a>
-                <a href="#education">Education</a>
-                <a href="#contact">Contact</a>
+            <!-- EMAIL MFA FORM -->
+            <form id="mfa-form" class="hidden"
+                  autocomplete="one-time-code">
+                <label for="mfa-code">6-digit verification code</label>
+                <input
+                    id="mfa-code"
+                    name="code"
+                    type="text"
+                    inputmode="numeric"
+                    autocomplete="one-time-code"
+                    pattern="[0-9]{6}"
+                    maxlength="6"
+                    placeholder="000000"
+                    required
+                >
 
-            </nav>
+                <p class="auth-hint">
+                    We sent a verification code to your email.
+                    It expires in 10 minutes.
+                </p>
 
-            <a
-                href="https://github.com/Sudheer0x"
-                target="_blank"
-                class="github-nav">
+                <button id="verify-button" class="auth-submit" type="submit">
+                    Verify and continue
+                    <span aria-hidden="true">→</span>
+                </button>
 
-                <i class="fa-brands fa-github"></i>
+                <button id="resend-button" class="auth-link" type="button">
+                    Resend code
+                </button>
 
-            </a>
+                <button id="back-button" class="auth-link" type="button">
+                    Use a different account
+                </button>
+            </form>
 
+            <!-- LOGIN / SIGNUP SWITCH -->
+            <p class="auth-switch" id="auth-switch">
+                <span id="auth-switch-text">New here?</span>
+                <button id="auth-switch-button"
+                        class="auth-link"
+                        type="button">
+                    Create an account
+                </button>
+            </p>
+
+            <p id="auth-message" class="auth-message"
+               role="status" aria-live="polite"></p>
+
+            <p class="auth-footnote">
+                <i class="fa-solid fa-shield-halved"
+                   aria-hidden="true"></i>
+                Protected with two-step verification
+            </p>
         </div>
+    </section>
 
-    </header>
+    <!-- ================= PORTFOLIO CONTENT ================= -->
+    <div id="site-content" class="site-content hidden">
 
+        <!-- NAVBAR -->
+        <header class="navbar">
+            <div class="container nav-container">
+                <a href="#home" class="logo">SB<span>.</span></a>
 
-    <!-- ================= HERO ================= -->
+                <nav aria-label="Main navigation">
+                    <a href="#home">Home</a>
+                    <a href="#about">About</a>
+                    <a href="#skills">Skills</a>
+                    <a href="#experience">Experience</a>
+                    <a href="#projects">Projects</a>
+                    <a href="#education">Education</a>
+                    <a href="#contact">Contact</a>
+                </nav>
 
-    <main>
-
-        <section id="home" class="hero">
-
-            <div class="container hero-container">
-
-                <div class="hero-content">
-
-                    <p class="eyebrow">
-                        <span></span>
-                        AI / ML ENGINEER
-                    </p>
-
-                    <h1>
-                        Building intelligent
-                        <span>AI-powered</span>
-                        solutions.
-                    </h1>
-
-                    <p class="hero-description">
-
-                        I'm Sudheer Bandi, an Integrated M.Tech CSE student
-                        at VIT-AP University passionate about Artificial
-                        Intelligence, LLM applications and Python development.
-
-                    </p>
-
-                    <div class="hero-buttons">
-
-                        <a href="#projects" class="btn primary-btn">
-                            View Projects
-                            <i class="fa-solid fa-arrow-right"></i>
-                        </a>
-
-                        <a href="https://github.com/Sudheer0x"
-                           target="_blank"
-                           class="btn secondary-btn">
-
-                            <i class="fa-brands fa-github"></i>
-                            GitHub
-
-                        </a>
-
-                    </div>
-
-                    <div class="hero-socials">
-
-                        <a href="mailto:sudheerbandi1929@gmail.com">
-                            <i class="fa-solid fa-envelope"></i>
-                        </a>
-
-                        <a href="https://github.com/Sudheer0x"
-                           target="_blank">
-                            <i class="fa-brands fa-github"></i>
-                        </a>
-
-                    </div>
-
-                </div>
-
-
-                <!-- Profile -->
-
-                <div class="hero-visual">
-
-                    <div class="glow"> 
-                        
-                    </div>
-
-                    <div class="profile-card">
-
-                        <img
-                            src="images/profile.jpg"
-                            alt="Sudheer Bandi">
-
-                    </div>
-
-                    <div class="floating-card card-python">
-
-                        <i class="fa-brands fa-python"></i>
-                        Python
-
-                    </div>
-
-                    <div class="floating-card card-ai">
-
-                        <i class="fa-solid fa-brain"></i>
-                        AI / LLM
-
-                    </div>
-
-                </div>
-
+                <a href="https://github.com/Sudheer0x"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   class="github-nav"
+                   aria-label="GitHub profile">
+                    <i class="fa-brands fa-github"></i>
+                </a>
             </div>
+        </header>
 
-        </section>
-
-
-        <!-- ================= ABOUT ================= -->
-
-        <section id="about" class="section">
-
-            <div class="container">
-
-                <div class="section-heading">
-
-                    <p>ABOUT ME</p>
-
-                    <h2>Turning ideas into intelligent solutions.</h2>
-
-                </div>
-
-
-                <div class="about-grid">
-
-                    <div class="about-text">
-
-                        <p>
-
-                            I am an Integrated M.Tech Computer Science and
-                            Engineering student at VIT-AP University with
-                            an academic focus on Artificial Intelligence
-                            and Machine Learning.
-
+        <main>
+            <!-- HERO -->
+            <section id="home" class="hero">
+                <div class="container hero-container">
+                    <div class="hero-content">
+                        <p class="eyebrow">
+                            <span></span> AI / ML ENGINEER
                         </p>
 
-                        <p>
+                        <h1>
+                            Building intelligent
+                            <span>AI-powered</span>
+                            solutions.
+                        </h1>
 
-                            I enjoy working with Python, AI/LLM technologies
-                            and backend systems to build practical
-                            applications that solve real-world problems.
-
+                        <p class="hero-description">
+                            I'm Sudheer Bandi, an Integrated M.Tech CSE student
+                            at VIT-AP University passionate about Artificial
+                            Intelligence, LLM applications and Python development.
                         </p>
 
-                        <p>
-
-                            Currently, I am strengthening my foundations in
-                            Java and Data Structures & Algorithms while
-                            exploring modern AI technologies.
-
-                        </p>
-
-                    </div>
-
-
-                    <div class="about-highlights">
-
-                        <div class="highlight">
-
-                            <span>01</span>
-
-                            <div>
-                                <h3>AI Development</h3>
-                                <p>
-                                    Exploring LLMs, Agentic AI and
-                                    intelligent applications.
-                                </p>
-                            </div>
-
-                        </div>
-
-
-                        <div class="highlight">
-
-                            <span>02</span>
-
-                            <div>
-                                <h3>Python Development</h3>
-                                <p>
-                                    Building backend and AI applications
-                                    using Python.
-                                </p>
-                            </div>
-
-                        </div>
-
-
-                        <div class="highlight">
-
-                            <span>03</span>
-
-                            <div>
-                                <h3>Continuous Learning</h3>
-                                <p>
-                                    Improving DSA, software development
-                                    and AI engineering skills.
-                                </p>
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <!-- ================= SKILLS ================= -->
-
-        <section id="skills" class="section skills-section">
-
-            <div class="container">
-
-                <div class="section-heading">
-
-                    <p>TECHNICAL SKILLS</p>
-
-                    <h2>Tools I work with.</h2>
-
-                </div>
-
-
-                <div class="skills-grid">
-
-                    <div class="skill-card">
-
-                        <div class="skill-icon">
-                            <i class="fa-solid fa-code"></i>
-                        </div>
-
-                        <h3>Programming</h3>
-
-                        <div class="tags">
-                            <span>Python</span>
-                            <span>Java</span>
-                            <span>DSA</span>
-                        </div>
-
-                    </div>
-
-
-                    <div class="skill-card">
-
-                        <div class="skill-icon">
-                            <i class="fa-solid fa-brain"></i>
-                        </div>
-
-                        <h3>AI / LLM</h3>
-
-                        <div class="tags">
-                            <span>Agentic AI</span>
-                            <span>LangChain</span>
-                            <span>Ollama</span>
-                            <span>LLMs</span>
-                        </div>
-
-                    </div>
-
-
-                    <div class="skill-card">
-
-                        <div class="skill-icon">
-                            <i class="fa-solid fa-globe"></i>
-                        </div>
-
-                        <h3>Web Development</h3>
-
-                        <div class="tags">
-                            <span>HTML</span>
-                            <span>CSS</span>
-                            <span>JavaScript</span>
-                            <span>React</span>
-                        </div>
-
-                    </div>
-
-
-                    <div class="skill-card">
-
-                        <div class="skill-icon">
-                            <i class="fa-solid fa-server"></i>
-                        </div>
-
-                        <h3>Backend & Tools</h3>
-
-                        <div class="tags">
-                            <span>FastAPI</span>
-                            <span>MySQL</span>
-                            <span>Git</span>
-                            <span>GitHub</span>
-                            <span>Docker</span>
-                            <span>VS Code</span>
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <!-- ================= EXPERIENCE ================= -->
-
-        <section id="experience" class="section">
-
-            <div class="container">
-
-                <div class="section-heading">
-
-                    <p>EXPERIENCE</p>
-
-                    <h2>Learning through real-world work.</h2>
-
-                </div>
-
-
-                <div class="timeline">
-
-                    <div class="timeline-item">
-
-                        <div class="timeline-dot"></div>
-
-                        <div class="timeline-content">
-
-                            <span class="timeline-date">
-                                Agentic AI
-                            </span>
-
-                            <h3>Agentic AI Internship</h3>
-
-                            <h4>IBM</h4>
-
-                            <p>
-
-                                Worked on concepts related to Agentic AI
-                                and intelligent AI applications while
-                                developing practical understanding of
-                                modern AI technologies.
-
-                            </p>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <!-- ================= PROJECTS ================= -->
-
-        <section id="projects" class="section projects-section">
-
-            <div class="container">
-
-                <div class="section-heading">
-
-                    <p>PROJECTS</p>
-
-                    <h2>Things I've built.</h2>
-
-                </div>
-
-
-                <div class="projects-grid">
-
-
-                    <!-- Project 1 -->
-
-                    <article class="project-card featured-project">
-
-                        <div class="project-top">
-
-                            <div class="project-icon">
-                                <i class="fa-solid fa-robot"></i>
-                            </div>
-
-                            <a
-                                href="https://github.com/Sudheer0x"
-                                target="_blank">
-
-                                <i class="fa-brands fa-github"></i>
-
+                        <div class="hero-buttons">
+                            <a href="#projects" class="btn primary-btn">
+                                View Projects
+                                <i class="fa-solid fa-arrow-right"></i>
                             </a>
 
+                            <a href="https://github.com/Sudheer0x"
+                               target="_blank"
+                               rel="noopener noreferrer"
+                               class="btn secondary-btn">
+                                <i class="fa-brands fa-github"></i> GitHub
+                            </a>
                         </div>
 
-                        <span class="project-label">
-                            AI / AGENTIC AI
-                        </span>
+                        <div class="hero-socials">
+                            <a href="mailto:sudheerbandi1929@gmail.com"
+                               aria-label="Email">
+                                <i class="fa-solid fa-envelope"></i>
+                            </a>
 
-                        <h3>
-                            University AI Assistant
-                        </h3>
+                            <a href="https://github.com/Sudheer0x"
+                               target="_blank"
+                               rel="noopener noreferrer"
+                               aria-label="GitHub">
+                                <i class="fa-brands fa-github"></i>
+                            </a>
+                        </div>
+                    </div>
 
-                        <p>
+                    <div class="hero-visual">
+                        <div class="glow"></div>
 
-                            An AI-powered university assistant designed
-                            to help students obtain information about
-                            academics, admissions, faculty, campus
-                            facilities and university services.
-
-                        </p>
-
-                        <div class="project-tech">
-
-                            <span>Python</span>
-                            <span>LangChain</span>
-                            <span>LangGraph</span>
-                            <span>Ollama</span>
-                            <span>FastAPI</span>
-
+                        <div class="profile-card">
+                            <img src="images/profile.jpg"
+                                 alt="Sudheer Bandi">
                         </div>
 
-                    </article>
+                        <div class="floating-card card-python">
+                            <i class="fa-brands fa-python"></i> Python
+                        </div>
 
+                        <div class="floating-card card-ai">
+                            <i class="fa-solid fa-brain"></i> AI / LLM
+                        </div>
+                    </div>
+                </div>
+            </section>
 
-                    <!-- Project 2 -->
+            <!-- ABOUT -->
+            <section id="about" class="section">
+                <div class="container">
+                    <div class="section-heading">
+                        <p>ABOUT ME</p>
+                        <h2>Turning ideas into intelligent solutions.</h2>
+                    </div>
 
-                    <article class="project-card">
+                    <div class="about-grid">
+                        <div class="about-text">
+                            <p>
+                                I am an Integrated M.Tech Computer Science and
+                                Engineering student at VIT-AP University with
+                                an academic focus on Artificial Intelligence
+                                and Machine Learning.
+                            </p>
+                            <p>
+                                I enjoy working with Python, AI/LLM technologies
+                                and backend systems to build practical
+                                applications that solve real-world problems.
+                            </p>
+                            <p>
+                                Currently, I am strengthening my foundations in
+                                Java and Data Structures & Algorithms while
+                                exploring modern AI technologies.
+                            </p>
+                        </div>
 
-                        <div class="project-top">
-
-                            <div class="project-icon">
-                                <i class="fa-solid fa-laptop-code"></i>
+                        <div class="about-highlights">
+                            <div class="highlight">
+                                <span>01</span>
+                                <div>
+                                    <h3>AI Development</h3>
+                                    <p>Exploring LLMs, Agentic AI and intelligent applications.</p>
+                                </div>
                             </div>
 
-                        </div>
-
-                        <span class="project-label">
-                            WEB DEVELOPMENT
-                        </span>
-
-                        <h3>
-                            Developer Portfolio
-                        </h3>
-
-                        <p>
-
-                            A responsive developer portfolio built to
-                            showcase technical skills, AI projects,
-                            education and development experience.
-
-                        </p>
-
-                        <div class="project-tech">
-
-                            <span>HTML</span>
-                            <span>CSS</span>
-                            <span>JavaScript</span>
-                            <span>GitHub</span>
-                            <span>Vercel</span>
-
-                        </div>
-
-                    </article>
-
-
-                    <!-- Project 3 -->
-
-                    <article class="project-card">
-
-                        <div class="project-top">
-
-                            <div class="project-icon">
-                                <i class="fa-solid fa-code"></i>
+                            <div class="highlight">
+                                <span>02</span>
+                                <div>
+                                    <h3>Python Development</h3>
+                                    <p>Building backend and AI applications using Python.</p>
+                                </div>
                             </div>
 
+                            <div class="highlight">
+                                <span>03</span>
+                                <div>
+                                    <h3>Continuous Learning</h3>
+                                    <p>Improving DSA, software development and AI engineering skills.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SKILLS -->
+            <section id="skills" class="section skills-section">
+                <div class="container">
+                    <div class="section-heading">
+                        <p>TECHNICAL SKILLS</p>
+                        <h2>Tools I work with.</h2>
+                    </div>
+
+                    <div class="skills-grid">
+                        <div class="skill-card">
+                            <div class="skill-icon"><i class="fa-solid fa-code"></i></div>
+                            <h3>Programming</h3>
+                            <div class="tags">
+                                <span>Python</span><span>Java</span><span>DSA</span>
+                            </div>
                         </div>
 
-                        <span class="project-label">
-                            SOFTWARE DEVELOPMENT
-                        </span>
-
-                        <h3>
-                            More Projects Coming Soon
-                        </h3>
-
-                        <p>
-
-                            Currently working on additional projects
-                            while expanding my skills in Java, DSA,
-                            Artificial Intelligence and software development.
-
-                        </p>
-
-                        <div class="project-tech">
-
-                            <span>Java</span>
-                            <span>DSA</span>
-                            <span>Python</span>
-                            <span>AI</span>
-
+                        <div class="skill-card">
+                            <div class="skill-icon"><i class="fa-solid fa-brain"></i></div>
+                            <h3>AI / LLM</h3>
+                            <div class="tags">
+                                <span>Agentic AI</span><span>LangChain</span>
+                                <span>Ollama</span><span>LLMs</span>
+                            </div>
                         </div>
 
-                    </article>
+                        <div class="skill-card">
+                            <div class="skill-icon"><i class="fa-solid fa-globe"></i></div>
+                            <h3>Web Development</h3>
+                            <div class="tags">
+                                <span>HTML</span><span>CSS</span>
+                                <span>JavaScript</span><span>React</span>
+                            </div>
+                        </div>
 
+                        <div class="skill-card">
+                            <div class="skill-icon"><i class="fa-solid fa-server"></i></div>
+                            <h3>Backend & Tools</h3>
+                            <div class="tags">
+                                <span>FastAPI</span><span>MySQL</span>
+                                <span>Git</span><span>GitHub</span>
+                                <span>Docker</span><span>VS Code</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+            </section>
 
-            </div>
-
-        </section>
-
-
-        <!-- ================= EDUCATION ================= -->
-
-        <section id="education" class="section">
-
-            <div class="container">
-
-                <div class="section-heading">
-
-                    <p>EDUCATION</p>
-
-                    <h2>Academic journey.</h2>
-
-                </div>
-
-
-                <div class="education-grid">
-
-
-                    <div class="education-card">
-
-                        <span class="education-year">
-                            2023 — 2028
-                        </span>
-
-                        <h3>
-                            Integrated M.Tech in Computer Science
-                            and Engineering
-                        </h3>
-
-                        <p>
-                            VIT-AP University
-                        </p>
-
-                        <strong>
-                            CGPA: 8.3 / 10
-                        </strong>
-
+            <!-- EXPERIENCE -->
+            <section id="experience" class="section">
+                <div class="container">
+                    <div class="section-heading">
+                        <p>EXPERIENCE</p>
+                        <h2>Learning through real-world work.</h2>
                     </div>
 
-
-                    <div class="education-card">
-
-                        <span class="education-year">
-                            2021 — 2023
-                        </span>
-
-                        <h3>
-                            Class XII
-                        </h3>
-
-                        <p>
-                            Narayana Junior College
-                        </p>
-
-                        <strong>
-                            95.1%
-                        </strong>
-
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <div class="timeline-dot"></div>
+                            <div class="timeline-content">
+                                <span class="timeline-date">Agentic AI</span>
+                                <h3>Agentic AI Internship</h3>
+                                <h4>IBM</h4>
+                                <p>
+                                    Worked on concepts related to Agentic AI and
+                                    intelligent AI applications while developing
+                                    practical understanding of modern AI technologies.
+                                </p>
+                            </div>
+                        </div>
                     </div>
-
-
-                    <div class="education-card">
-
-                        <span class="education-year">
-                            Class X
-                        </span>
-
-                        <h3>
-                            Secondary Education
-                        </h3>
-
-                        <p>
-                            590 / 600
-                        </p>
-
-                        <strong>
-                            98.33%
-                        </strong>
-
-                    </div>
-
                 </div>
+            </section>
 
-            </div>
+            <!-- PROJECTS -->
+            <section id="projects" class="section projects-section">
+                <div class="container">
+                    <div class="section-heading">
+                        <p>PROJECTS</p>
+                        <h2>Things I've built.</h2>
+                    </div>
 
-        </section>
+                    <div class="projects-grid">
+                        <article class="project-card featured-project">
+                            <div class="project-top">
+                                <div class="project-icon"><i class="fa-solid fa-robot"></i></div>
+                                <a href="https://github.com/Sudheer0x"
+                                   target="_blank"
+                                   rel="noopener noreferrer"
+                                   aria-label="GitHub projects">
+                                    <i class="fa-brands fa-github"></i>
+                                </a>
+                            </div>
+                            <span class="project-label">AI / AGENTIC AI</span>
+                            <h3>University AI Assistant</h3>
+                            <p>
+                                An AI-powered university assistant designed to
+                                help students obtain information about academics,
+                                admissions, faculty, campus facilities and services.
+                            </p>
+                            <div class="project-tech">
+                                <span>Python</span><span>LangChain</span>
+                                <span>LangGraph</span><span>Ollama</span>
+                                <span>FastAPI</span>
+                            </div>
+                        </article>
 
+                        <article class="project-card">
+                            <div class="project-top">
+                                <div class="project-icon"><i class="fa-solid fa-laptop-code"></i></div>
+                            </div>
+                            <span class="project-label">WEB DEVELOPMENT</span>
+                            <h3>Developer Portfolio</h3>
+                            <p>
+                                A responsive developer portfolio showcasing
+                                technical skills, AI projects, education and experience.
+                            </p>
+                            <div class="project-tech">
+                                <span>HTML</span><span>CSS</span>
+                                <span>JavaScript</span><span>GitHub</span>
+                            </div>
+                        </article>
 
-        <!-- ================= CONTACT ================= -->
+                        <article class="project-card">
+                            <div class="project-top">
+                                <div class="project-icon"><i class="fa-solid fa-code"></i></div>
+                            </div>
+                            <span class="project-label">SOFTWARE DEVELOPMENT</span>
+                            <h3>More Projects Coming Soon</h3>
+                            <p>
+                                Currently working on additional projects while
+                                expanding my skills in Java, DSA, AI and software development.
+                            </p>
+                            <div class="project-tech">
+                                <span>Java</span><span>DSA</span>
+                                <span>Python</span><span>AI</span>
+                            </div>
+                        </article>
+                    </div>
+                </div>
+            </section>
 
-        <section id="contact" class="section contact-section">
+            <!-- EDUCATION -->
+            <section id="education" class="section">
+                <div class="container">
+                    <div class="section-heading">
+                        <p>EDUCATION</p>
+                        <h2>Academic journey.</h2>
+                    </div>
 
-            <div class="container">
+                    <div class="education-grid">
+                        <div class="education-card">
+                            <span class="education-year">2023 — 2028</span>
+                            <h3>Integrated M.Tech in Computer Science and Engineering</h3>
+                            <p>VIT-AP University</p>
+                            <strong>CGPA: 8.3 / 10</strong>
+                        </div>
 
-                <div class="contact-box">
+                        <div class="education-card">
+                            <span class="education-year">2021 — 2023</span>
+                            <h3>Class XII</h3>
+                            <p>Narayana Junior College</p>
+                            <strong>95.1%</strong>
+                        </div>
 
-                    <p class="section-label">
-                        GET IN TOUCH
-                    </p>
+                        <div class="education-card">
+                            <span class="education-year">Class X</span>
+                            <h3>Secondary Education</h3>
+                            <p>590 / 600</p>
+                            <strong>98.33%</strong>
+                        </div>
+                    </div>
+                </div>
+            </section>
 
-                    <h2>
-                        Let's build something
-                        <span>intelligent.</span>
-                    </h2>
+            <!-- CONTACT -->
+            <section id="contact" class="section contact-section">
+                <div class="container">
+                    <div class="contact-box">
+                        <p class="section-label">GET IN TOUCH</p>
+                        <h2>Let's build something <span>intelligent.</span></h2>
+                        <p>
+                            I'm open to opportunities, collaborations,
+                            internships and interesting AI/ML projects.
+                        </p>
 
-                    <p>
-
-                        I'm open to opportunities, collaborations,
-                        internships and interesting AI/ML projects.
-
-                    </p>
-
-                    <a
-                        href="mailto:sudheerbandi1929@gmail.com"
-                        class="btn primary-btn">
-
-                        Contact Me
-                        <i class="fa-solid fa-arrow-right"></i>
-
-                    </a>
-
-                    <div class="contact-links">
-
-                        <a
-                            href="mailto:sudheerbandi1929@gmail.com">
-
-                            <i class="fa-solid fa-envelope"></i>
-
-                            sudheerbandi1929@gmail.com
-
+                        <a href="mailto:sudheerbandi1929@gmail.com"
+                           class="btn primary-btn">
+                            Contact Me <i class="fa-solid fa-arrow-right"></i>
                         </a>
 
-                        <a
-                            href="https://github.com/Sudheer0x"
-                            target="_blank">
-
-                            <i class="fa-brands fa-github"></i>
-
-                            github.com/Sudheer0x
-
-                        </a>
-
+                        <div class="contact-links">
+                            <a href="mailto:sudheerbandi1929@gmail.com">
+                                <i class="fa-solid fa-envelope"></i>
+                                sudheerbandi1929@gmail.com
+                            </a>
+                            <a href="https://github.com/Sudheer0x"
+                               target="_blank"
+                               rel="noopener noreferrer">
+                                <i class="fa-brands fa-github"></i>
+                                github.com/Sudheer0x
+                            </a>
+                        </div>
                     </div>
-
                 </div>
+            </section>
+        </main>
 
+        <!-- FOOTER -->
+        <footer>
+            <div class="container footer-container">
+                <p>© 2026 Sudheer Bandi</p>
+                <p>Built with HTML, CSS & JavaScript</p>
             </div>
-
-        </section>
-
-    </main>
-
-
-    <!-- ================= FOOTER ================= -->
-
-    <footer>
-
-        <div class="container footer-container">
-
-            <p>
-                © 2026 Sudheer Bandi
-            </p>
-
-            <p>
-                Built with HTML, CSS & JavaScript
-            </p>
-
-        </div>
-
-    </footer>
-
-
-    <!-- JavaScript -->
+        </footer>
+    </div>
 
     <script src="script.js"></script>
-<<<<<<< HEAD
-    </div>
-=======
-
->>>>>>> origin/main
 </body>
-
 </html>
