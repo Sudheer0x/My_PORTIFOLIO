@@ -1,7 +1,9 @@
 
 'use strict';
 
+
 require('dotenv').config();
+const { log, requestLogger } = require('./logger');
 
 const crypto = require('crypto');
 const express = require('express');
@@ -36,11 +38,15 @@ const frontendOrigin = (
   process.env.FRONTEND_URL || 'https://sudheer0x.github.io'
 ).replace(/\/$/, '');
 
+
 const allowedOrigins = new Set([
   frontendOrigin,
+  'http://localhost:5500',
+  'http://127.0.0.1:5500',
   'http://localhost:3000',
   'http://127.0.0.1:3000'
 ]);
+
 
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
@@ -122,6 +128,7 @@ app.use(
 );
 
 app.use(express.json({ limit: '10kb' }));
+app.use(requestLogger);
 
 /*
  * Session configuration.
