@@ -4,7 +4,15 @@
 const crypto = require('crypto');
 
 const LOGSTASH_URL = process.env.LOGSTASH_URL;
-
+const LOGSTASH_USER = process.env.LOGSTASH_USER;
+const LOGSTASH_PASSWORD = process.env.LOGSTASH_PASSWORD;
+console.log(JSON.stringify({
+  service: 'portfolio-auth-api',
+  event: 'logstash_config_check',
+  url_configured: Boolean(LOGSTASH_URL),
+  username_configured: Boolean(LOGSTASH_USER),
+  password_configured: Boolean(LOGSTASH_PASSWORD)
+}));
 function log(level, event, fields = {}) {
   const record = {
     '@timestamp': new Date().toISOString(),
@@ -16,30 +24,54 @@ function log(level, event, fields = {}) {
 
   const line = JSON.stringify(record);
 
-  // Keep logging to the backend console.
+  // Always keep structured logs in the backend console.
   if (level === 'error') {
     console.error(line);
   } else {
     console.log(line);
   }
 
-  // Forward the structured log to Logstash when configured.
+  // Forward logs only when Logstash is configured.
   if (LOGSTASH_URL) {
+    const headers = {
+      'Content-Type': 'application/json'
+    };
+
+    // Add Basic Authentication when credentials are configured.
+    if (LOGSTASH_USER && LOGSTASH_PASSWORD) {
+      const credentials = Buffer.from(
+        `${LOGSTASH_USER}:${LOGSTASH_PASSWORD}`
+      ).toString('base64');
+
+      headers.Authorization = `Basic ${credentials}`;
+    }
+
     fetch(LOGSTASH_URL, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
+      headers,
       body: line,
       signal: AbortSignal.timeout(2000)
-    }).catch((err) => {
-      console.error(JSON.stringify({
-        level: 'warn',
-        service: 'portfolio-auth-api',
-        event: 'logstash_delivery_failed',
-        error: err.message
-      }));
-    });
+    })
+      .then((response) => {
+        if (!response.ok) {
+          console.error(JSON.stringify({
+            level: 'warn',
+            service: 'portfolio-auth-api',
+            event: 'logstash_delivery_failed',
+            status_code: response.status
+          }));
+        }
+      })
+      .catch((err) => {
+        console.error(JSON.stringify({
+          level: 'warn',
+          service: 'portfolio-auth-api',
+          event: 'logstash_delivery_failed',
+          error: err.name === 'TimeoutError'
+            ? 'timeout'
+            : 'connection_error'
+        }));
+      });
   }
 }
 
