@@ -13,10 +13,33 @@ const pgSession = require('connect-pg-simple')(session);
 const { Pool } = require('pg');
 const bcrypt = require('bcryptjs');
 const { rateLimit } = require('express-rate-limit');
+const promClient = require('prom-client');
 
 const app = express();
 const isProduction = process.env.NODE_ENV === 'production';
+
+// Prometheus metrics. Keep the registry local to this application.
+const metricsRegistry = new promClient.Registry();
+promClient.collectDefaultMetrics({ register: metricsRegistry });
+
+const httpRequestsTotal = new promClient.Counter({
+  name: 'portfolio_http_requests_total',
+  help: 'Total HTTP requests handled by the portfolio API.',
+  labelNames: ['method', 'route', 'status_code'],
+  registers: [metricsRegistry]
+});
+
+const httpRequestDuration = new promClient.Histogram({
+  name: 'portfolio_http_request_duration_seconds',
+  help: 'HTTP request duration in seconds.',
+  labelNames: ['method', 'route', 'status_code'],
+  buckets: [0.005, 0.01, 0.025, 0.05, 0.1, 0.25, 0.5, 1, 2.5, 5],
+  registers: [metricsRegistry]
+});
+
+
 const port = Number(process.env.PORT || 3000);
+let httpServer;
 
 if (!process.env.DATABASE_URL) {
   throw new Error('DATABASE_URL is required.');
@@ -129,6 +152,61 @@ app.use(
 
 app.use(express.json({ limit: '10kb' }));
 app.use(requestLogger);
+
+// Record API traffic without exposing raw URLs, query strings, emails, or IDs as labels.
+app.use((req, res, next) => {
+  if (req.path === '/metrics') return next();
+
+  const startedAt = process.hrtime.bigint();
+  res.on('finish', () => {
+    const route = req.route?.path
+      ? `${req.baseUrl || ''}${req.route.path}`
+      : (req.path.startsWith('/api/') ? '/api/:unmatched' : req.path);
+
+    const labels = {
+      method: req.method,
+      route: String(route).slice(0, 100),
+      status_code: String(res.statusCode)
+    };
+
+    httpRequestsTotal.inc(labels);
+    const elapsedSeconds = Number(process.hrtime.bigint() - startedAt) / 1e9;
+    httpRequestDuration.observe(labels, elapsedSeconds);
+  });
+
+  next();
+});
+
+// Protect metrics with a dedicated bearer token. In production, configure
+// METRICS_TOKEN in Render and in the Prometheus scrape secret file.
+app.get('/metrics', async (req, res) => {
+  const metricsToken = process.env.METRICS_TOKEN;
+
+  if (!metricsToken) {
+    return res.status(503).type('text/plain').send('Metrics endpoint is not configured.\\n');
+  }
+
+  const authorization = req.get('authorization') || '';
+  const expected = `Bearer ${metricsToken}`;
+
+  const suppliedBuffer = Buffer.from(authorization);
+  const expectedBuffer = Buffer.from(expected);
+  const authorized =
+    suppliedBuffer.length === expectedBuffer.length &&
+    crypto.timingSafeEqual(suppliedBuffer, expectedBuffer);
+
+  if (!authorized) {
+    return res.status(401).set('WWW-Authenticate', 'Bearer').type('text/plain').send('Unauthorized\\n');
+  }
+
+  try {
+    res.set('Content-Type', metricsRegistry.contentType);
+    return res.send(await metricsRegistry.metrics());
+  } catch (error) {
+    console.error('Prometheus metrics error:', error.message);
+    return res.status(500).type('text/plain').send('Unable to collect metrics.\\n');
+  }
+});
 
 /*
  * Session configuration.
@@ -731,7 +809,7 @@ async function startServer() {
   try {
     await initializeDatabase();
 
-    app.listen(port, () => {
+    httpServer = app.listen(port, () => {
       console.log(`Portfolio authentication API listening on port ${port}`);
     });
   } catch (error) {
@@ -745,15 +823,29 @@ startServer();
 async function shutdown() {
   console.log('Shutting down server...');
 
-  await new Promise((resolve) => {
-    app.close?.(resolve);
-    resolve();
-  }).catch(() => {});
+  if (httpServer) {
+    await new Promise((resolve) => httpServer.close(resolve));
+  }
 
   await pool.end();
-  process.exit(0);
 }
 
-process.on('SIGTERM', () => {
-  pool.end().finally(() => process.exit(0));
+process.once('SIGTERM', () => {
+  shutdown().then(
+    () => process.exit(0),
+    (error) => {
+      console.error('Shutdown failed:', error.message);
+      process.exit(1);
+    }
+  );
+});
+
+process.once('SIGINT', () => {
+  shutdown().then(
+    () => process.exit(0),
+    (error) => {
+      console.error('Shutdown failed:', error.message);
+      process.exit(1);
+    }
+  );
 });
